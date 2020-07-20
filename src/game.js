@@ -2,8 +2,8 @@ import Fish from './fish.js';
 import Avatar from './avatar.js';
 
 const CONSTANTS = {
-    BG_COLOR: 'blue',
-    DIM_X: 1000,
+    BG_COLOR: '#57d8ff',
+    DIM_X: 800,
     DIM_Y: 650
 }
 

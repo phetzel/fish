@@ -1,5 +1,5 @@
 const CONSTANTS = {
-    DIM_X: 1000,
+    DIM_X: 800,
     DIM_Y: 650,
     MAX_VELOCITY: 5,
     MAX_HEIGHT: 50
@@ -20,11 +20,16 @@ class Avatar {
     }
 
     animate() {
-        if (this.x + this.velX > 0 && this.x + this.velX < CONSTANTS.DIM_X) {
+        if (this.x + this.velX > 0 && this.x + this.velX + this.width< CONSTANTS.DIM_X) {
             this.x += this.velX;
+        } else {
+            this.VelX = 0;
         }
-        if (this.y + this.velY > 0 && this.y + this.velY < CONSTANTS.DIM_Y) {
+
+        if (this.y + this.velY > 0 && this.y + this.velY + this.height < CONSTANTS.DIM_Y) {
             this.y += this.velY;
+        } else {
+            this.velY = 0;
         }
         
         this.draw();

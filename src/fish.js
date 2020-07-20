@@ -1,8 +1,9 @@
 const CONSTANTS = {
-    DIM_X: 1000,
+    DIM_X: 800,
     DIM_Y: 650,
     MAX_VELOCITY: 10,
-    MAX_HEIGHT: 50
+    MAX_HEIGHT: 50,
+    COLORS: ["#00ff00", "#00ffff", "#ff00ff", "#ff0080"]
 };
 
 class Fish {
@@ -17,6 +18,7 @@ class Fish {
         this.x;
         this.dir;
         
+        this.color = CONSTANTS.COLORS[Math.floor(Math.random() * CONSTANTS.COLORS.length)];
 
         this.birthFish();
     }
@@ -41,7 +43,7 @@ class Fish {
     }
 
     draw() {
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
