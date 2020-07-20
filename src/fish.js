@@ -16,6 +16,7 @@ class Fish {
         this.y;
         this.x;
         this.dir;
+        
 
         this.birthFish();
     }

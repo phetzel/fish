@@ -1,4 +1,5 @@
 import Fish from './fish.js';
+import Avatar from './avatar.js';
 
 const CONSTANTS = {
     BG_COLOR: 'blue',
@@ -10,7 +11,13 @@ class Game {
     constructor(ctx) {
         this.ctx = ctx;
 
+        this.avatar = new Avatar(this.ctx);
         this.fish = [];
+    }
+
+    play() {
+        this.avatar.keys();
+        this.animate()
     }
 
     draw() {
@@ -22,6 +29,7 @@ class Game {
     animate() {
         this.draw();
 
+        this.avatar.animate();
         this.fish.forEach(f => {
             f.animate();
         });
@@ -30,12 +38,13 @@ class Game {
             this.fish.push(new Fish(this.ctx))
         }
 
-        this.removeFish();
+        this.removeSideFish();
+        this.checkCollisions();
 
         requestAnimationFrame(this.animate.bind(this));
     }
 
-    removeFish() {
+    removeSideFish() {
         let newFish = [];
 
         this.fish.forEach(f => {
@@ -45,6 +54,31 @@ class Game {
         });
 
         this.fish = newFish;
+    }
+
+    checkCollisions() {
+        this.fish.forEach(f => {
+            if (this.isCollided(f)) {
+                alert('collided')
+            }
+        })
+    }
+
+    isCollided(fish) {
+        const avatarCenX = this.avatar.x + this.avatar.width * .5;
+        const avatarCenY = this.avatar.y + this.avatar.height * .5;
+
+        const fCenX = fish.x + fish.width * .5;
+        const fCenY = fish.y + fish.height * .5;
+
+        const dx = avatarCenX - fCenX;
+        const dy = avatarCenY - fCenY;
+
+        const aveW = (this.avatar.width + fish.width) * .5;
+        const aveH = (this.avatar.height + fish.height) * .5;
+
+        if (Math.abs(dx) > aveW || Math.abs(dy) > aveH) return false;
+        return true;
     }
 }
 
