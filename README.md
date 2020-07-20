@@ -1,6 +1,6 @@
 # fish food
 
-![image](./images/fish1) 
+![image](./images/fish1.png) 
 
 ### Live Link
 https://eloquent-ride-1a20ee.netlify.app/
