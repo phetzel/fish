@@ -45,6 +45,26 @@ class Fish {
     draw() {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        this.ctx.save();
+
+        
+        // this.ctx.beginPath();
+        // this.ctx.moveTo(this.x + this.width, this.y);
+        // this.ctx.lineTo(this.x + this.width, this.y + this.height);
+        // this.ctx.lineTo(this.x + this.width + this.height, this.y + this.height);
+        // this.ctx.closePath();
+        // this.ctx.fill();
+        // this.ctx.restore();
+
+        const eye = this.height / 10;
+        this.ctx.fillStyle = "black";
+
+        if (this.dir === "left") {
+            this.ctx.fillRect(this.x + this.width / 9, this.y + this.height / 3, eye, eye);
+        } else {
+            this.ctx.fillRect(this.x + this.width - this.width / 9, this.y + this.height / 3, eye, eye)
+        }
+
     }
 
     move() {

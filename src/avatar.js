@@ -17,6 +17,8 @@ class Avatar {
 
         this.velX = 0;
         this.velY = 0;
+
+        this.dir = "right";
     }
 
     animate() {
@@ -38,6 +40,15 @@ class Avatar {
     draw() {
         this.ctx.fillStyle = "red";
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        const eye = this.height / 10;
+        this.ctx.fillStyle = "black";
+
+        if (this.dir === "left") {
+            this.ctx.fillRect(this.x + this.width / 9, this.y + this.height / 3, eye, eye);
+        } else {
+            this.ctx.fillRect(this.x + this.width - this.width / 9, this.y + this.height / 3, eye, eye)
+        }
     }
 
     keys() {
@@ -60,11 +71,13 @@ class Avatar {
             case "left":
                 if (this.velX > - 10) {
                     this.velX -= 1;
+                    if (this.dir === "right") this.dir = "left";
                 }
                 break;
             case "right":
                 if (this.velX < 10) {
                     this.velX += 1;
+                    if (this.dir === "left") this.dir = "right";
                 }
                 break;
             case "top":

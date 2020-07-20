@@ -20,6 +20,7 @@ class Game {
 
     play() {
         this.avatar.keys();
+        this.reset();
         this.animate();
     }
 
@@ -101,6 +102,21 @@ class Game {
         this.running = false;
         this.ctx.font = "30px Arial";
         this.ctx.fillText(`Game Over. Fish Eaten: ${this.score}`, 10, 50);
+    }
+
+    reset() {
+        key("r", () => {
+            this.fish = [];
+            this.score = 0;
+            this.running = true;
+            this.avatar.x = CONSTANTS.DIM_X / 2;
+            this.avatar.y = CONSTANTS.DIM_Y / 2;
+            this.avatar.width = 45;
+            this.avatar.height = 15;
+            this.avatar.velX = 0;
+            this.avatar.velY = 0;
+
+        })
     }
 }
 
