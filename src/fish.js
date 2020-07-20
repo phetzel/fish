@@ -47,7 +47,7 @@ class Fish {
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
         this.ctx.save();
 
-        
+        // this.ctx.rotate(20 * Math.PI / 180);
         // this.ctx.beginPath();
         // this.ctx.moveTo(this.x + this.width, this.y);
         // this.ctx.lineTo(this.x + this.width, this.y + this.height);
