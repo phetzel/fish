@@ -13,11 +13,14 @@ class Game {
 
         this.avatar = new Avatar(this.ctx);
         this.fish = [];
+        this.score = 0;
+
+        this.running = true;
     }
 
     play() {
         this.avatar.keys();
-        this.animate()
+        this.animate();
     }
 
     draw() {
@@ -27,19 +30,22 @@ class Game {
     }
 
     animate() {
-        this.draw();
 
-        this.avatar.animate();
-        this.fish.forEach(f => {
-            f.animate();
-        });
+        if(this.running) {
+            this.draw();
 
-        if (this.fish.length < 5) {
-            this.fish.push(new Fish(this.ctx))
+            this.avatar.animate();
+            this.fish.forEach(f => {
+                f.animate();
+            });
+
+            if (this.fish.length < 5) {
+                this.fish.push(new Fish(this.ctx))
+            }
+
+            this.removeSideFish();
+            this.checkCollisions();
         }
-
-        this.removeSideFish();
-        this.checkCollisions();
 
         requestAnimationFrame(this.animate.bind(this));
     }
@@ -57,9 +63,9 @@ class Game {
     }
 
     checkCollisions() {
-        this.fish.forEach(f => {
+        this.fish.forEach((f, idx) => {
             if (this.isCollided(f)) {
-                alert('collided')
+                this.collisionResult(f, idx);
             }
         })
     }
@@ -79,6 +85,22 @@ class Game {
 
         if (Math.abs(dx) > aveW || Math.abs(dy) > aveH) return false;
         return true;
+    }
+
+    collisionResult(f, idx) {
+        if (this.avatar.width > f.width) {
+            this.avatar.eat(f);
+            this.fish.splice(idx, 1);
+            this.score++;
+        } else {
+            this.gameOver();
+        }
+    }
+
+    gameOver() {
+        this.running = false;
+        this.ctx.font = "30px Arial";
+        this.ctx.fillText(`Game Over. Fish Eaten: ${this.score}`, 10, 50);
     }
 }
 

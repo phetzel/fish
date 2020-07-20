@@ -12,16 +12,20 @@ class Avatar {
         this.x = CONSTANTS.DIM_X / 2;
         this.y = CONSTANTS.DIM_Y / 2;
 
-        this.width = 30;
-        this.height = 10;
+        this.width = 45;
+        this.height = 15;
 
         this.velX = 0;
         this.velY = 0;
     }
 
     animate() {
-        this.x += this.velX;
-        this.y += this.velY;
+        if (this.x + this.velX > 0 && this.x + this.velX < CONSTANTS.DIM_X) {
+            this.x += this.velX;
+        }
+        if (this.y + this.velY > 0 && this.y + this.velY < CONSTANTS.DIM_Y) {
+            this.y += this.velY;
+        }
         
         this.draw();
     }
@@ -70,6 +74,11 @@ class Avatar {
                 break;
         }
     }
+
+    eat(fish) {
+        this.width += (fish.width * .25);
+        this.height += (fish.height * .25);
+    } 
 }
 
 export default Avatar;
