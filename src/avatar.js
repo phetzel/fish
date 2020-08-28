@@ -44,11 +44,32 @@ class Avatar {
         const eye = this.height / 10;
         this.ctx.fillStyle = "black";
 
+        let radians;
+        let triCenX;
+        const triCenY = this.y + this.height / 2;
+
         if (this.dir === "left") {
             this.ctx.fillRect(this.x + this.width / 9, this.y + this.height / 3, eye, eye);
+            triCenX = this.x + this.width;
+            radians = 180 * Math.PI / 180;
         } else {
-            this.ctx.fillRect(this.x + this.width - this.width / 9, this.y + this.height / 3, eye, eye)
+            this.ctx.fillRect(this.x + this.width - this.width / 9, this.y + this.height / 3, eye, eye);
+            triCenX = this.x;
+            radians = 120 * Math.PI / 180;
         }
+
+        this.ctx.translate(triCenX, triCenY);
+        this.ctx.rotate(radians);
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.height * Math.cos(0), this.height * Math.sin(0));
+        this.ctx.lineTo(this.height * Math.cos(1 * 2 * Math.PI / 3), this.height * Math.sin(1 * 2 * Math.PI / 3));
+        this.ctx.lineTo(this.height * Math.cos(2 * 2 * Math.PI / 3), this.height * Math.sin(2 * 2 * Math.PI / 3));
+        this.ctx.lineTo(this.height * Math.cos(3 * 2 * Math.PI / 3), this.height * Math.sin(3 * 2 * Math.PI / 3));
+        this.ctx.closePath();
+        this.ctx.fillStyle = "red";
+        this.ctx.fill();
+        this.ctx.rotate(-radians);
+        this.ctx.translate(-triCenX, -triCenY);
     }
 
     keys() {

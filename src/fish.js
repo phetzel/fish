@@ -43,19 +43,38 @@ class Fish {
     }
 
     draw() {
+        //Body
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
         this.ctx.save();
 
-        // this.ctx.rotate(20 * Math.PI / 180);
-        // this.ctx.beginPath();
-        // this.ctx.moveTo(this.x + this.width, this.y);
-        // this.ctx.lineTo(this.x + this.width, this.y + this.height);
-        // this.ctx.lineTo(this.x + this.width + this.height, this.y + this.height);
-        // this.ctx.closePath();
-        // this.ctx.fill();
-        // this.ctx.restore();
+        //fin
+        let radians;
+        let triCenX;
+        const triCenY = this.y + this.height / 2;
 
+        if (this.dir === "left") {
+            triCenX = this.x + this.width;
+            radians = 180 * Math.PI / 180;
+        } else {
+            triCenX = this.x;
+            radians = 120 * Math.PI / 180;
+        }
+
+        this.ctx.translate(triCenX, triCenY);
+        this.ctx.rotate(radians);
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.height * Math.cos(0), this.height * Math.sin(0));
+        this.ctx.lineTo(this.height * Math.cos(1 * 2 * Math.PI / 3), this.height * Math.sin(1 * 2 * Math.PI / 3));
+        this.ctx.lineTo(this.height * Math.cos(2 * 2 * Math.PI / 3), this.height * Math.sin(2 * 2 * Math.PI / 3));
+        this.ctx.lineTo(this.height * Math.cos(3 * 2 * Math.PI / 3), this.height * Math.sin(3 * 2 * Math.PI / 3));
+        this.ctx.closePath();
+        this.ctx.fillStyle = this.color;
+        this.ctx.fill();
+        this.ctx.rotate(-radians);
+        this.ctx.translate(-triCenX, -triCenY);
+
+        //eye
         const eye = this.height / 10;
         this.ctx.fillStyle = "black";
 
